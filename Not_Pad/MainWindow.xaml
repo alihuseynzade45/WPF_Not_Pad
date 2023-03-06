@@ -1,0 +1,116 @@
+﻿<Window x:Class="Not_Pad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Not_Pad"
+        mc:Ignorable="d"
+        Title="Not Pad" Height="550" Width="1200">
+
+
+    <Window.Resources>
+
+        <Style x:Key="MyToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    
+
+
+    <Grid>
+        <WrapPanel Margin="0,0,0,420" Height="90" Width="1175" Background="#eeeeee">
+
+            <TextBox x:Name="FileTextBox" FontSize="40" Margin="30,10,0,0" Height="70" Width="250" BorderThickness="3" BorderBrush="#FF707070" Background="Transparent"></TextBox>
+
+            <Button x:Name="FileSelecte" Content="△" FontSize="50" Margin="0,10,0,0" Height="70" Width="100" BorderThickness="3" Background="Transparent" 
+                    Click="FileOpen_Click"></Button>
+
+            <Button Content="Save" FontSize="30" Margin="20,10,0,0" Height="70" Width="120" BorderThickness="3" Background="Transparent" 
+                    Click="Save_Click">
+
+            </Button>
+
+            <Expander Margin="10,10,0,0" Height="70" Width="80" >
+
+
+                <Expander.Template>
+                    <ControlTemplate TargetType="Expander">
+                        <Grid>
+                            <ToggleButton  x:Name="HeaderSite"
+                              Width="80"
+                              Height="70"
+                              Background="Transparent"
+                              BorderBrush="#FF707070"
+                              BorderThickness="3"
+                              FontWeight="DemiBold"
+                              Content="Auto Save"
+                              FontSize="14"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                              IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                              Style="{StaticResource MyToggleButtonStyle}"/>
+                            <ContentPresenter x:Name="ExpandSite"
+                                  Visibility="Collapsed"
+                                  Content="{TemplateBinding Content}"
+                                  Margin="{TemplateBinding Padding}"
+                                  Focusable="false"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="HeaderSite" Property="IsEnabled" Value="False"/>
+                                <Setter TargetName="ExpandSite" Property="IsEnabled" Value="False"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Expander.Template>
+
+
+
+                <CheckBox x:Name="AutoSave" Content="Auto Save" FontStretch="Expanded" FontSize="12" Height="50" Margin="3,80,-3,-60" Checked="AutoSave_Checked" ></CheckBox>
+            
+            </Expander>
+
+            <Button Content="Cut" FontSize="30" Margin="15,10,0,0" Height="70" Width="80" BorderThickness="3" Background="Transparent" 
+                    Click="Cut_Click"></Button>
+
+            <Button Content="Copy" FontSize="30" Margin="20,10,0,0" Height="70" Width="100" BorderThickness="3" Background="Transparent" 
+                    Click="Copy_Click"></Button>
+
+            <Button Content="Paste" FontSize="30" Margin="20,10,0,0" Height="70" Width="100" BorderThickness="3" Background="Transparent" 
+                    Click="Paste_Click"></Button>
+
+            <Button Content="Select all" FontSize="30" Margin="20,10,0,0" Height="70" Width="150" BorderThickness="3" Background="Transparent" 
+                    Click="SelectAll_Click"></Button>
+
+        </WrapPanel>
+
+
+        <RichTextBox x:Name="richtextbox" FontSize="30" Margin="0,100,0,0" Width="1180" Height="400" Background="#eeeeee" BorderThickness="0">
+
+           
+            
+        </RichTextBox>
+
+
+    </Grid>
+</Window>
